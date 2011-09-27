@@ -1,0 +1,7 @@
+= Fileshare Notes
+
+== Model
+
+Models are where the business logic happens.  This is how data is stored and accessed, and is the starting point for access and security.  Models that need to be worked through include:
+
+  Users, Repositories (Folders, Projects, or whatever we want to call it), Files, Sharing, Subscriptions
