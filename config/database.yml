@@ -15,7 +15,7 @@ development:
   database: fileshare_development
   pool: 5
   username: root
-  password:
+  password: redrooster8
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -28,7 +28,7 @@ test:
   database: fileshare_test
   pool: 5
   username: root
-  password:
+  password: redrooster8
   socket: /var/run/mysqld/mysqld.sock
 
 production:
@@ -38,5 +38,5 @@ production:
   database: fileshare_production
   pool: 5
   username: root
-  password:
+  password: redrooster8
   socket: /var/run/mysqld/mysqld.sock

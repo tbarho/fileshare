@@ -41,4 +41,8 @@ end
 group :development do
   gem 'rspec-rails'
   gem 'webrat'
+  gem 'ty-gen', :path => '/var/www/railsprojects/ty-gen'
 end
+gem "rspec", :group => "test"
+gem "webrat", :group => "test"
+gem "rspec-rails", :group => "development"
