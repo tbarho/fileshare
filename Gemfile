@@ -46,3 +46,5 @@ end
 gem "rspec", :group => "test"
 gem "webrat", :group => "test"
 gem "rspec-rails", :group => "development"
+gem "webrat", :group => "development"
+gem "factory_girl_rails", :group => "test"

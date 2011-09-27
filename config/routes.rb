@@ -1,4 +1,11 @@
 Fileshare::Application.routes.draw do
+
+  resources :sessions, :only => [ :new, :create, :destroy ]
+  resources :users
+
+  match '/signout', :to => 'sessions#destroy'
+  match '/signin', :to => 'sessions#new'
+  match '/signup', :to => 'users#new'
   match '/about', :to => 'pages#about'
 
   root :to => 'pages#home'
