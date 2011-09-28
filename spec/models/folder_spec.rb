@@ -12,7 +12,7 @@ describe Folder do
       @user.folders.create!(@attr)
   end
 
-  describe "associations" do
+  describe "user associations" do
     before(:each) do
       @folder = @user.folders.create!(@attr)
     end
@@ -31,13 +31,36 @@ describe Folder do
       end
     end
 
-    describe "viewers" do
+  end
+
+  describe "folder associations" do
+    before(:each) do
+      @parent = @user.folders.create!(:name => "Parent Folder")
+      @folder = @user.folders.create!(:name => "Subject Folder", :parent => @parent)
+      @child_1 = @user.folders.create!(:name => "Child Folder 1", :parent => @folder)
+      @child_2 = @user.folders.create!(:name => "Child Folder 2", :parent => @folder)
+    end
+    
+    describe "parent" do
+      it "should have a parent attribute" do
+        @folder.should respond_to(:parent)
+      end
+      it "should have the right parent" do
+        @folder.parent_id.should == @parent.id
+        @folder.parent.should == @parent
+      end
+      it "should not have a parent if its a root folder" do
+        @parent.parent.should be_nil
+      end
     end
 
-    describe "editors" do
-    end
-
-    describe "invitations" do
+    describe "folders (children)" do
+      it "should have a folders attribute" do
+        @folder.should respond_to(:folders)
+      end
+      it "should have the right child folders" do
+        @folder.folders.should == [@child_1, @child_2]
+      end
     end
 
   end

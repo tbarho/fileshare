@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110928203240) do
+ActiveRecord::Schema.define(:version => 20110928221745) do
 
   create_table "folders", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
+    t.integer  "parent_id"
   end
 
   create_table "users", :force => true do |t|
