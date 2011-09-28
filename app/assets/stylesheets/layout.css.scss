@@ -1,0 +1,20 @@
+@import "reset.css.scss";
+
+$page-width: 920px;
+$background: #fff;
+
+@mixin rounded-corners($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+body {
+  background: $background;
+  font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.container {
+  width: $page-width;
+  margin: 0 auto;
+}
