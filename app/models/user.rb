@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
 
+  has_many :folders, :foreign_key => "owner_id"
+
   validates :name, :presence => true,
                    :length => { :maximum => 50 }
 

@@ -18,11 +18,15 @@ describe Folder do
     end
 
     describe "owner" do
+      before(:each) do
+        @owner = @user
+      end
+
       it "should have an owner attribute" do
-        @folder.should respond_to(:user)
+        @folder.should respond_to(:owner)
       end
       it "should have the right associated owner" do
-        @folder.owner_id.should == @user.id
+        @folder.owner_id.should == @owner.id
         @folder.owner.should == @owner
       end
     end
