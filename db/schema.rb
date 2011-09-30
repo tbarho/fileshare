@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110928221745) do
+ActiveRecord::Schema.define(:version => 20110930194717) do
 
   create_table "folders", :force => true do |t|
     t.string   "name"
@@ -31,5 +31,17 @@ ActiveRecord::Schema.define(:version => 20110928221745) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  create_table "view_relationships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "viewable_id"
+    t.string   "viewable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "view_relationships", ["user_id"], :name => "index_view_relationships_on_user_id"
+  add_index "view_relationships", ["viewable_id"], :name => "index_view_relationships_on_viewable_id"
+  add_index "view_relationships", ["viewable_type"], :name => "index_view_relationships_on_viewable_type"
 
 end

@@ -31,6 +31,25 @@ describe Folder do
       end
     end
 
+    describe "viewers" do
+      before(:each) do
+        @viewer1 = Factory(:user, :email => Factory.next(:email))
+        @viewer2 = Factory(:user, :email => Factory.next(:email))
+
+        @folder.make_viewable!(@viewer1)
+        @folder.make_viewable!(@viewer2)
+      end
+      it "should have a make_viewable! method" do
+        @folder.should respond_to(:make_viewable!)
+      end
+      it "should have a viewers attribute" do
+        @folder.should respond_to(:viewers)
+      end
+      it "should have the right viewers" do
+        @folder.viewers.should == [@viewer1, @viewer2]
+      end
+    end
+
   end
 
   describe "folder associations" do
