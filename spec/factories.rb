@@ -8,3 +8,8 @@ end
 Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end
+
+Factory.define :folder do |folder|
+  folder.name "New Parent Folder"
+  folder.association :user
+end
