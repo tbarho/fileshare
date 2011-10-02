@@ -18,3 +18,21 @@ Folder "folder" associations should respond to:
 
   @folder.parent
   @folder.folders
+
+For folder sharing, the code should look like:
+
+  @user = User.find(n)
+  @folder = Folder.find(n)
+  @user.can_view!(@folder)
+
+OR, for revoking priveledges
+
+  @user.cannot_view!(@folder)
+  @user.cannot_edit!(@folder)
+
+With can_view? and can_edit? permissions tests
+
+For folder side permissions, you could have:
+
+  @folder.allowing_view_by?(@user)
+  @folder.allowing_edit_by?(@user)
