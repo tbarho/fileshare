@@ -12,8 +12,7 @@ class Folder < ActiveRecord::Base
   validates :owner_id, :name, :presence => true
   validates :name, :length => { :maximum => 50 }
 
-  def make_viewable!(viewer)
-    view_relationships.create!(:user_id => viewer.id)
+  def allowing_view_by?(user)
+    viewers.exists?(user)
   end
-
 end

@@ -33,20 +33,27 @@ describe Folder do
 
     describe "viewers" do
       before(:each) do
-        @viewer1 = Factory(:user, :email => Factory.next(:email))
-        @viewer2 = Factory(:user, :email => Factory.next(:email))
-
-        @folder.make_viewable!(@viewer1)
-        @folder.make_viewable!(@viewer2)
-      end
-      it "should have a make_viewable! method" do
-        @folder.should respond_to(:make_viewable!)
+        @viewer = Factory(:user, :email => Factory.next(:email))
       end
       it "should have a viewers attribute" do
         @folder.should respond_to(:viewers)
       end
-      it "should have the right viewers" do
-        @folder.viewers.should == [@viewer1, @viewer2]
+      it "should have an allowing_view_by? method" do
+        @folder.should respond_to(:allowing_view_by?)
+      end
+      it "should allow a user to view" do
+        @viewer.can_view!(@folder)
+        @folder.should be_allowing_view_by(@viewer)
+      end
+      it "should DISallow a user from viewing" do
+        @unauthorized_viewer = Factory(:user, :email => Factory.next(:email))
+        @unauthorized_viewer.can_view!(@folder)
+        @unauthorized_viewer.cannot_view!(@folder)
+        @folder.should_not be_allowing_view_by(@unauthorized_viewer)
+      end 
+      it "should include the user in the viewers array" do
+        @viewer.can_view!(@folder)
+        @folder.viewers.should include(@viewer)
       end
     end
 
@@ -88,14 +95,11 @@ describe Folder do
     it "should require an owner id" do
       Folder.new(@attr).should_not be_valid
     end
-
     it "should require nonblank name" do
       @user.folders.build(:name => "    ").should_not be_valid
     end
-
     it "should reject a long name" do
       @user.folders.build(:name => "a" * 51).should_not be_valid
     end
   end
-
 end

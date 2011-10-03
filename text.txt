@@ -1,0 +1,26 @@
+
+    describe "viewers" do
+      before(:each) do
+        @viewer = Factory(:user, :email => Factory.next(:email))
+      end
+      it "should have a viewers attribute" do
+        @folder.should respond_to(:viewers)
+      do
+      it "should have an allowing_view_by? method" do
+        @folder.should respond_to(:allowing_view_by?)
+      end
+      it "should allow a user to view" do
+        @viewer.can_view!(@folder)
+        @folder.should be_allowing_view_by(@viewer)
+      end
+      it "should DISallow a user from viewing" do
+        @unauthorized_viewer = Factory(:user, :email => Factory.next(:email))
+        @unauthorized_viewer.can_view!(@folder)
+        @unauthorized_viewer.cannot_view!(@folder)
+        @folder.should_not be_allowing_view_by(@unauthorized_viewer)
+      end 
+      it "should include the user in the viewers array" do
+        @viewer.can_view!(@folder)
+        @folder.viewers.should include(@viewer)
+      end
+    end

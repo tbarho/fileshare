@@ -32,6 +32,18 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
+  def viewing?(resource)
+    resource.viewers.exists?(self)
+  end
+
+  def can_view!(resource)
+    resource.view_relationships.create!(:user_id => id)
+  end
+
+  def cannot_view!(resource)
+    resource.view_relationships.find_by_user_id(id).destroy
+  end
+
   private
  
     def encrypt_password
