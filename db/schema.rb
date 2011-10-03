@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930194717) do
+ActiveRecord::Schema.define(:version => 20111003163548) do
+
+  create_table "edit_relationships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "editable_id"
+    t.string   "editable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "folders", :force => true do |t|
     t.string   "name"

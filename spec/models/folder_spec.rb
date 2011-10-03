@@ -57,6 +57,32 @@ describe Folder do
       end
     end
 
+    describe "editors" do
+      before(:each) do
+        @editor = Factory(:user, :email => Factory.next(:email))
+      end
+      it "should have an editors attribute" do
+        @folder.should respond_to(:editors)
+      end
+      it "should have an allowing_edit_by? method" do
+        @folder.should respond_to(:allowing_edit_by?)
+      end
+      it "should allow a user to edit" do
+        @editor.can_edit!(@folder)
+        @folder.should be_allowing_edit_by(@editor)
+      end
+      it "should DISallow a user from editing" do
+        @unauthorized_editor = Factory(:user, :email => Factory.next(:email))
+        @unauthorized_editor.can_edit!(@folder)
+        @unauthorized_editor.cannot_edit!(@folder)
+        @folder.should_not be_allowing_edit_by(@unauthorized_editor)
+      end 
+      it "should include the user in the editors array" do
+        @editor.can_edit!(@folder)
+        @folder.editors.should include(@editor)
+      end
+    end
+
   end
 
   describe "folder associations" do

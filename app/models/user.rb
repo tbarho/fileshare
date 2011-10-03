@@ -44,6 +44,18 @@ class User < ActiveRecord::Base
     resource.view_relationships.find_by_user_id(id).destroy
   end
 
+  def editing?(resource)
+    resource.editors.exists?(self)
+  end
+
+  def can_edit!(resource)
+    resource.edit_relationships.create!(:user_id => id)
+  end
+
+  def cannot_edit!(resource)
+    resource.edit_relationships.find_by_user_id(id).destroy
+  end
+
   private
  
     def encrypt_password

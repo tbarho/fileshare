@@ -133,5 +133,28 @@ describe User do
         @view_user.should_not be_viewing(@resource)
       end
     end
+
+    describe "editing" do
+      before(:each) do
+        @edit_user = Factory(:user, :email => Factory.next(:email))
+        @edit_user.can_edit!(@resource)
+      end
+      it "should have a can_edit! method" do
+        @edit_user.should respond_to(:can_edit!)
+      end
+      it "should have a editing? method" do
+        @edit_user.should respond_to(:editing?)
+      end
+      it "should allow a user to edit the resource" do
+        @edit_user.should be_editing(@resource)
+      end
+      it "should have a cannot_edit! method" do
+        @edit_user.should respond_to(:cannot_edit!)
+      end
+      it "should prohibit the user from editing the resource" do
+        @edit_user.cannot_edit!(@resource)
+        @edit_user.should_not be_editing(@resource)
+      end
+    end
   end
 end
